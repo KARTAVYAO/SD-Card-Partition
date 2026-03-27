@@ -97,7 +97,7 @@ def list_block_devices():
     for dev in data.get("blockdevices", []):
         if dev.get("type") != "disk":
             continue
-        # Only include removable/hotplug devices (SD cards and USB drives)
+        # Only include removable devices (SD cards and USB drives)
         is_removable = dev.get("rm") == "1" or dev.get("hotplug") == "1"
         tran = dev.get("tran", "")
         is_sd_or_usb = tran in ("usb", "sd", "mmc", "") or is_removable
@@ -287,7 +287,7 @@ def format_partitions(device):
     for i, part in enumerate(PARTITIONS, start=1):
         node = partition_node(device, i)
 
-        # Wait for the node to appear (up to 10 s)
+        # Wait for the node to appear
         for _ in range(20):
             if os.path.exists(node):
                 break
