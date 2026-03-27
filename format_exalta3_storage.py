@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Ex-Alta 3 Storage Device Formatter
-====================================
+------------------------------------
 Formats and partitions SD cards or USB drives according to the
 EX3-SE OBC ICD V0.01 partition layout specification.
 
@@ -32,9 +32,8 @@ import subprocess
 import sys
 import time
 
-# ──────────────────────────────────────────────
 # Partition specification from ICD Table 5
-# ──────────────────────────────────────────────
+
 PARTITIONS = [
     {"name": "Housekeeping", "label": "hk",   "size_gb": 3},
     {"name": "Logs",         "label": "logs",  "size_gb": 3},
@@ -51,9 +50,7 @@ ROLE_MOUNT_ROOTS = {
 }
 
 
-# ──────────────────────────────────────────────
 # Helpers
-# ──────────────────────────────────────────────
 
 def run(cmd, check=True, capture=False):
     """Run a shell command, optionally capturing output."""
@@ -86,9 +83,7 @@ def require_tools():
         sys.exit(1)
 
 
-# ──────────────────────────────────────────────
 # Device Detection
-# ──────────────────────────────────────────────
 
 def list_block_devices():
     """Return a list of removable block devices (SD cards and USB drives)."""
@@ -173,9 +168,7 @@ def resolve_device(args_device):
     return select_device_interactive(devices)
 
 
-# ──────────────────────────────────────────────
 # Partition node naming
-# ──────────────────────────────────────────────
 
 def partition_node(device, number):
     """
@@ -188,9 +181,7 @@ def partition_node(device, number):
     return f"{device}{number}"
 
 
-# ──────────────────────────────────────────────
 # Validation
-# ──────────────────────────────────────────────
 
 def validate_device_size(device):
     """Warn if the device is smaller than the required partition total."""
@@ -225,9 +216,7 @@ def check_mounted_partitions(device):
         sys.exit(1)
 
 
-# ──────────────────────────────────────────────
 # Role selection
-# ──────────────────────────────────────────────
 
 def select_role(args_role):
     if args_role in ROLE_MOUNT_ROOTS:
@@ -245,9 +234,7 @@ def select_role(args_role):
             print("  Please enter 1 or 2.")
 
 
-# ──────────────────────────────────────────────
 # Formatting
-# ──────────────────────────────────────────────
 
 def confirm_destructive(device, role):
     print("\n" + "=" * 60)
@@ -318,9 +305,7 @@ def format_partitions(device):
         ])
 
 
-# ──────────────────────────────────────────────
 # Mount point creation
-# ──────────────────────────────────────────────
 
 def create_mount_points(role):
     mount_root = ROLE_MOUNT_ROOTS[role]
@@ -331,9 +316,7 @@ def create_mount_points(role):
         print(f"  Created: {mp}")
 
 
-# ──────────────────────────────────────────────
-# fstab generation (optional)
-# ──────────────────────────────────────────────
+# fstab generation
 
 def print_fstab_entries(device, role):
     mount_root = ROLE_MOUNT_ROOTS[role]
@@ -346,9 +329,8 @@ def print_fstab_entries(device, role):
     print()
 
 
-# ──────────────────────────────────────────────
 # Summary
-# ──────────────────────────────────────────────
+
 
 def print_summary(device, role):
     mount_root = ROLE_MOUNT_ROOTS[role]
@@ -371,9 +353,7 @@ def print_summary(device, role):
     run(["lsblk", "-o", "NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT", device])
 
 
-# ──────────────────────────────────────────────
 # Entry point
-# ──────────────────────────────────────────────
 
 def parse_args():
     parser = argparse.ArgumentParser(
