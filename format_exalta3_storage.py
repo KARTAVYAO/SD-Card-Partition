@@ -320,9 +320,9 @@ def create_mount_points(role):
 
 def print_fstab_entries(device, role):
     mount_root = ROLE_MOUNT_ROOTS[role]
-    print("\n" + "=" * 60)
+    print("\n" + "-" * 60)
     print("  Suggested /etc/fstab entries (uses filesystem labels):")
-    print("=" * 60)
+    print("-" * 60)
     for part in PARTITIONS:
         mp = f"{mount_root}/{part['label']}"
         print(f"LABEL={part['label']:<10}  {mp:<28}  ext4  defaults,nofail  0  2")
@@ -334,9 +334,9 @@ def print_fstab_entries(device, role):
 
 def print_summary(device, role):
     mount_root = ROLE_MOUNT_ROOTS[role]
-    print("\n" + "=" * 60)
+    print("\n" + "-" * 60)
     print("  FORMAT COMPLETE")
-    print("=" * 60)
+    print("-" * 60)
     print(f"  Device : {device}")
     print(f"  Role   : {role}")
     print()
