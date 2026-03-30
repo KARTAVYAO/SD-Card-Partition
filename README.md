@@ -2,8 +2,6 @@
 
 A Python script to format and partition SD cards or USB drives according to the **EX3-SE OBC ICD V0.01** partition layout specification for the Ex-Alta 3 CubeSat mission.
 
-Built by AlbertaSat — University of Alberta, Institute for Space Science Exploration and Technology.
-
 ---
 
 ## Table of Contents
