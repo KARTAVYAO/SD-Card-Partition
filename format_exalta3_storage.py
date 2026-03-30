@@ -238,7 +238,7 @@ def select_role(args_role):
 
 def confirm_destructive(device, role):
     print("\n" + "=" * 60)
-    print("  !! DESTRUCTIVE OPERATION – ALL DATA WILL BE ERASED !!")
+    print("  ARE YOU SURE?? – ALL DATA WILL BE ERASED !!")
     print("=" * 60)
     print(f"  Device : {device}")
     print(f"  Role   : {role}  ({ROLE_MOUNT_ROOTS[role]})")
